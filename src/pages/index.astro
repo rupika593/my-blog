@@ -1,0 +1,32 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+	</head>
+	<body>
+		<Header />
+		<main>
+			<h1>Namaste!</h1>
+			<p>
+				I'm <strong>Rupika</strong>, currently pursuing my <strong>third year of B.Tech in Computer Science and Engineering (Artificial Intelligence & Machine Learning)</strong>.
+			</p>
+			<p>
+				I am passionate about learning new technologies and continuously improving my technical skills. I enjoy exploring the latest advancements in AI, machine learning, and software development.
+			</p>
+			<p>
+				Beyond technology, I have a deep interest in researching ancient temples, their history, architecture, and cultural significance. I love discovering how India's rich heritage connects with science, engineering, and tradition.
+			</p>
+			<p>
+				Welcome to my blog, where I share my learning journey, technology insights, and fascinating discoveries about ancient temples.
+			</p>
+		</main>
+		<Footer />
+	</body>
+</html>

@@ -5,6 +5,7 @@ import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import FormattedDate from '../components/FormattedDate.astro';
 import Header from '../components/Header.astro';
+import { getCollection } from 'astro:content';
 
 interface Props {
 	title: string;
@@ -17,73 +18,382 @@ interface Props {
 }
 
 const { title, description, pubDate, updatedDate, heroImage, readingTime, showBackToBlog = true } = Astro.props;
+
+// Get all blog posts for navigation
+const allPosts = await getCollection('blog');
+const sortedPosts = allPosts.sort((a, b) => new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime());
+
+// Find current post index
+const currentIndex = sortedPosts.findIndex(post => post.data.title === title);
+const prevPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null;
+const nextPost = currentIndex < sortedPosts.length - 1 ? sortedPosts[currentIndex + 1] : null;
 ---
 
 <html lang="en">
 	<head>
 		<BaseHead title={title} description={description} />
 		<style>
+			/* Modern Blue Theme - Article Page */
+			:root {
+				--primary-blue: #2563EB;
+				--deep-blue: #1E3A8A;
+				--light-blue: #60A5FA;
+				--sky-blue: #DBEAFE;
+				--accent-cyan: #06B6D4;
+				--white: #FFFFFF;
+				--light-bg: #F8FAFC;
+			}
+
+			body {
+				background: linear-gradient(135deg, #1E3A8A 0%, #2563EB 50%, #60A5FA 100%);
+				min-height: 100vh;
+				position: relative;
+				overflow-x: hidden;
+			}
+
+			body::before {
+				content: '';
+				position: fixed;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				background-image: 
+					radial-gradient(circle at 20% 30%, rgba(96, 165, 250, 0.15) 0%, transparent 50%),
+					radial-gradient(circle at 80% 70%, rgba(6, 182, 212, 0.15) 0%, transparent 50%),
+					radial-gradient(circle at 40% 80%, rgba(37, 99, 235, 0.1) 0%, transparent 50%);
+				pointer-events: none;
+				z-index: 0;
+			}
+
+			/* Reading Progress Bar */
+			.progress-bar {
+				position: fixed;
+				top: 0;
+				left: 0;
+				width: 0%;
+				height: 4px;
+				background: linear-gradient(90deg, #2563EB 0%, #06B6D4 100%);
+				z-index: 9999;
+				transition: width 0.2s ease;
+				box-shadow: 0 0 10px rgba(37, 99, 235, 0.5);
+			}
+
 			main {
 				width: calc(100% - 2em);
 				max-width: 100%;
 				margin: 0;
+				position: relative;
+				z-index: 1;
 			}
-			.hero-image {
-				width: 100%;
-			}
-			.hero-image img {
-				display: block;
-				margin: 0 auto;
-				border-radius: 12px;
-				box-shadow: var(--box-shadow);
-			}
-			.prose {
-				width: 720px;
-				max-width: calc(100% - 2em);
-				margin: auto;
-				padding: 1em;
-				color: rgb(var(--gray-dark));
-			}
-			.title {
-				margin-bottom: 1em;
-				padding: 1em 0;
-				text-align: center;
-				line-height: 1;
-			}
-			.title h1 {
-				margin: 0 0 0.5em 0;
-			}
-			.date {
-				margin-bottom: 0.5em;
-				color: rgb(var(--gray));
-			}
-			.last-updated-on {
-				font-style: italic;
-			}
-			.reading-time {
-				color: rgb(var(--gray));
-				margin-left: 0.5rem;
-			}
+
 			.back-link {
-				margin-bottom: 1.5rem;
+				margin-bottom: 2rem;
+				padding: 1rem;
 			}
+
 			.back-link a {
 				display: inline-flex;
 				align-items: center;
 				text-decoration: none;
-				color: rgb(var(--gray));
-				font-size: 0.95rem;
-				font-weight: 500;
-				transition: color 0.15s ease;
+				color: white;
+				font-size: 1rem;
+				font-weight: 600;
+				transition: all 0.3s ease;
+				background: rgba(255, 255, 255, 0.1);
+				padding: 0.8rem 1.5rem;
+				border-radius: 50px;
+				backdrop-filter: blur(10px);
+				border: 1px solid rgba(255, 255, 255, 0.2);
 			}
+
 			.back-link a:hover {
-				color: rgb(var(--accent));
+				background: rgba(255, 255, 255, 0.2);
+				transform: translateX(-5px);
+				box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
+			}
+
+			.hero-image {
+				width: 100%;
+				animation: fadeInUp 0.8s ease-out;
+			}
+
+			.hero-image img {
+				display: block;
+				margin: 0 auto;
+				border-radius: 20px;
+				box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+				transition: all 0.5s ease;
+			}
+
+			.hero-image img:hover {
+				box-shadow: 0 30px 80px rgba(37, 99, 235, 0.4);
+				transform: translateY(-5px);
+			}
+
+			.prose {
+				width: 800px;
+				max-width: calc(100% - 2em);
+				margin: 3rem auto;
+				padding: 3rem;
+				background: rgba(255, 255, 255, 0.95);
+				backdrop-filter: blur(20px);
+				border-radius: 24px;
+				box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+				border: 2px solid rgba(255, 255, 255, 0.5);
+				animation: fadeInUp 0.8s ease-out 0.2s both;
+			}
+
+			.title {
+				margin-bottom: 2rem;
+				padding: 2rem 0;
+				text-align: center;
+				line-height: 1;
+			}
+
+			.title h1 {
+				font-size: 3rem;
+				margin: 0 0 1rem 0;
+				background: linear-gradient(135deg, #1E3A8A 0%, #2563EB 100%);
+				-webkit-background-clip: text;
+				-webkit-text-fill-color: transparent;
+				background-clip: text;
+				font-weight: 800;
+			}
+
+			.date {
+				margin-bottom: 0.5rem;
+				color: #2563EB;
+				font-weight: 600;
+				display: flex;
+				justify-content: center;
+				gap: 1rem;
+				flex-wrap: wrap;
+			}
+
+			.last-updated-on {
+				font-style: italic;
+				color: #60A5FA;
+			}
+
+			.reading-time {
+				color: #06B6D4;
+				font-weight: 600;
+				background: rgba(6, 182, 212, 0.1);
+				padding: 0.5rem 1rem;
+				border-radius: 20px;
+			}
+
+			hr {
+				border: none;
+				height: 3px;
+				background: linear-gradient(90deg, transparent, #2563EB, #06B6D4, transparent);
+				margin: 2rem 0;
+			}
+
+			/* Article Content Styling */
+			.prose h2 {
+				color: #1E3A8A;
+				font-size: 2rem;
+				margin-top: 2.5rem;
+				margin-bottom: 1rem;
+				padding-bottom: 0.5rem;
+				border-bottom: 2px solid rgba(37, 99, 235, 0.2);
+			}
+
+			.prose h3 {
+				color: #2563EB;
+				font-size: 1.5rem;
+				margin-top: 2rem;
+				margin-bottom: 0.75rem;
+			}
+
+			.prose p {
+				color: #334155;
+				line-height: 1.8;
+				font-size: 1.1rem;
+				margin-bottom: 1.5rem;
+			}
+
+			.prose ul {
+				color: #334155;
+				line-height: 1.8;
+				margin-left: 1.5rem;
+				margin-bottom: 1.5rem;
+			}
+
+			.prose li {
+				margin-bottom: 0.5rem;
+			}
+
+			.prose strong {
+				color: #1E3A8A;
+				font-weight: 700;
+			}
+
+			/* Article Navigation */
+			.article-navigation {
+				display: flex;
+				justify-content: space-between;
+				gap: 2rem;
+				margin-top: 3rem;
+				padding-top: 2rem;
+				border-top: 2px solid rgba(37, 99, 235, 0.2);
+			}
+
+			.nav-link {
+				flex: 1;
+				text-decoration: none;
+				color: #1E3A8A;
+				transition: all 0.3s ease;
+				padding: 1.5rem;
+				border-radius: 16px;
+				background: rgba(37, 99, 235, 0.05);
+				border: 2px solid rgba(37, 99, 235, 0.1);
+			}
+
+			.nav-link:hover {
+				background: linear-gradient(135deg, rgba(37, 99, 235, 0.1), rgba(6, 182, 212, 0.1));
+				border-color: #2563EB;
+				transform: translateY(-5px);
+				box-shadow: 0 10px 30px rgba(37, 99, 235, 0.2);
+			}
+
+			.nav-link.next {
+				text-align: right;
+			}
+
+			.nav-label {
+				font-size: 0.85rem;
+				color: #60A5FA;
+				margin-bottom: 0.5rem;
+				text-transform: uppercase;
+				letter-spacing: 1px;
+				font-weight: 600;
+			}
+
+			.nav-title {
+				font-weight: 700;
+				font-size: 1.1rem;
+			}
+
+			.nav-placeholder {
+				flex: 1;
+			}
+
+			/* Related Articles */
+			.related-articles {
+				margin-top: 3rem;
+				padding-top: 2rem;
+				border-top: 2px solid rgba(37, 99, 235, 0.2);
+			}
+
+			.related-title {
+				font-size: 1.75rem;
+				margin-bottom: 1.5rem;
+				background: linear-gradient(135deg, #1E3A8A 0%, #2563EB 100%);
+				-webkit-background-clip: text;
+				-webkit-text-fill-color: transparent;
+				background-clip: text;
+				font-weight: 700;
+			}
+
+			.related-grid {
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+				gap: 1.5rem;
+			}
+
+			.related-card {
+				text-decoration: none;
+				color: #334155;
+				transition: all 0.3s ease;
+				padding: 1.5rem;
+				border-radius: 16px;
+				background: linear-gradient(135deg, rgba(37, 99, 235, 0.05), rgba(6, 182, 212, 0.05));
+				border: 2px solid rgba(37, 99, 235, 0.1);
+			}
+
+			.related-card:hover {
+				background: linear-gradient(135deg, rgba(37, 99, 235, 0.15), rgba(6, 182, 212, 0.15));
+				border-color: #2563EB;
+				transform: translateY(-5px);
+				box-shadow: 0 10px 30px rgba(37, 99, 235, 0.2);
+			}
+
+			.related-card-title {
+				font-weight: 700;
+				font-size: 1.1rem;
+				margin-bottom: 0.5rem;
+				color: #1E3A8A;
+			}
+
+			.related-card-date {
+				font-size: 0.85rem;
+				color: #60A5FA;
+			}
+
+			@keyframes fadeInUp {
+				from {
+					opacity: 0;
+					transform: translateY(40px);
+				}
+				to {
+					opacity: 1;
+					transform: translateY(0);
+				}
+			}
+
+			@media (max-width: 720px) {
+				.article-navigation {
+					flex-direction: column;
+					gap: 1rem;
+				}
+
+				.nav-link.next {
+					text-align: left;
+				}
+
+				.related-grid {
+					grid-template-columns: 1fr;
+				}
+
+				.title h1 {
+					font-size: 2rem;
+				}
+
+				.prose {
+					padding: 1.5rem;
+				}
+			}
+
+			@media (max-width: 480px) {
+				.title h1 {
+					font-size: 1.75rem;
+				}
+
+				.prose {
+					padding: 1rem;
+				}
 			}
 		</style>
+		<script>
+			// Reading Progress Bar
+			document.addEventListener('scroll', function() {
+				const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+				const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+				const scrolled = (winScroll / height) * 100;
+				const progressBar = document.querySelector('.progress-bar');
+				if (progressBar) {
+					progressBar.style.width = scrolled + '%';
+				}
+			});
+		</script>
 	</head>
 
 	<body>
 		<Header />
+		<div class="progress-bar"></div>
 		<main>
 			<article>
 				{
@@ -113,6 +423,46 @@ const { title, description, pubDate, updatedDate, heroImage, readingTime, showBa
 						<hr />
 					</div>
 					<slot />
+				</div>
+
+				<!-- Article Navigation -->
+				<div class="prose">
+					<div class="article-navigation">
+						{nextPost ? (
+							<a href={`/blog/${nextPost.id}`} class="nav-link">
+								<div class="nav-label">← Previous Article</div>
+								<div class="nav-title">{nextPost.data.title}</div>
+							</a>
+						) : (
+							<div class="nav-placeholder"></div>
+						)}
+						{prevPost ? (
+							<a href={`/blog/${prevPost.id}`} class="nav-link next">
+								<div class="nav-label">Next Article →</div>
+								<div class="nav-title">{prevPost.data.title}</div>
+							</a>
+						) : (
+							<div class="nav-placeholder"></div>
+						)}
+					</div>
+
+					<!-- Related Articles -->
+					<div class="related-articles">
+						<h3 class="related-title">Related Articles</h3>
+						<div class="related-grid">
+							{sortedPosts
+								.filter(post => post.data.title !== title)
+								.slice(0, 3)
+								.map(post => (
+									<a href={`/blog/${post.id}`} class="related-card">
+										<div class="related-card-title">{post.data.title}</div>
+										<div class="related-card-date">
+											<FormattedDate date={post.data.pubDate} />
+										</div>
+									</a>
+								))}
+						</div>
+					</div>
 				</div>
 			</article>
 		</main>

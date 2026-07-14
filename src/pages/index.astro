@@ -13,20 +13,264 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 	<body>
 		<Header />
 		<main>
-			<h1>Namaste!</h1>
-			<p>
-				I'm <strong>Rupika</strong>, currently pursuing my <strong>third year of B.Tech in Computer Science and Engineering (Artificial Intelligence & Machine Learning)</strong>.
-			</p>
-			<p>
-				I am passionate about learning new technologies and continuously improving my technical skills. I enjoy exploring the latest advancements in AI, machine learning, and software development.
-			</p>
-			<p>
-				Beyond technology, I have a deep interest in researching ancient temples, their history, architecture, and cultural significance. I love discovering how India's rich heritage connects with science, engineering, and tradition.
-			</p>
-			<p>
-				Welcome to my blog, where I share my learning journey, technology insights, and fascinating discoveries about ancient temples.
-			</p>
+			<section class="hero">
+				<h1 class="hero-title">
+					Welcome to the world of a <span class="highlight">PolyMath Mind</span>
+				</h1>
+				<p class="hero-name">
+					<strong>Ch.Rupika</strong>
+				</p>
+				<p class="hero-subtitle">
+					Exploring technology, science, creativity, and innovation through multiple perspectives.
+				</p>
+				<p class="hero-intro">
+					Namaste! I am a curious learner and explorer passionate about connecting different domains of knowledge. My journey combines technology, artificial intelligence, science, research, creativity, and problem-solving.
+				</p>
+				
+				<h2 class="section-heading">Areas I Explore</h2>
+				<ul class="interests-list">
+					<li>Technical Professional with 48 LPA Career Goals</li>
+					<li>Psychologist</li>
+					<li>Philosopher</li>
+					<li>Astrophysicist</li>
+					<li>RAW Intelligence Research Enthusiast</li>
+					<li>Crime Investigation Explorer</li>
+					<li>Archaeology Researcher</li>
+					<li>Ancient Temple Research Explorer</li>
+					<li>Singer</li>
+					<li>Linguist</li>
+					<li>Badminton Player</li>
+					<li>Archery Enthusiast</li>
+					<li>Dancer</li>
+					<li>IAS Officer Aspirant</li>
+					<li>Professor</li>
+					<li>Content Creator</li>
+				</ul>
+				
+				<div class="hero-buttons">
+					<a href="/blog" class="btn btn-primary">Explore My Journey</a>
+					<a href="/blog" class="btn btn-secondary">Read My Blogs</a>
+				</div>
+			</section>
 		</main>
+
+		<style>
+			.hero {
+				text-align: center;
+				padding: 4em 1em;
+				max-width: 900px;
+				margin: 0 auto;
+			}
+
+			.hero-title {
+				font-size: 3.5rem;
+				margin-bottom: 1.5rem;
+				line-height: 1.2;
+				animation: fadeInDown 1s ease-out;
+			}
+
+			.hero-name {
+				font-size: 2rem;
+				margin-bottom: 1rem;
+				animation: fadeInUp 1s ease-out 0.2s both;
+			}
+
+			.hero-name strong {
+				color: rgb(var(--black));
+				font-weight: 700;
+			}
+
+			.highlight {
+				color: var(--accent);
+				font-weight: 700;
+				position: relative;
+				display: inline-block;
+			}
+
+			.highlight::after {
+				content: '';
+				position: absolute;
+				bottom: 0;
+				left: 0;
+				width: 100%;
+				height: 3px;
+				background: linear-gradient(90deg, var(--accent), var(--accent-dark));
+				animation: slideIn 1s ease-out 0.5s both;
+			}
+
+			.hero-subtitle {
+				font-size: 1.5rem;
+				color: rgb(var(--gray));
+				margin-bottom: 2rem;
+				animation: fadeInUp 1s ease-out 0.3s both;
+			}
+
+			.hero-intro {
+				font-size: 1.1rem;
+				line-height: 1.8;
+				margin-bottom: 3rem;
+				animation: fadeInUp 1s ease-out 0.5s both;
+			}
+
+			.section-heading {
+				font-size: 2rem;
+				margin-bottom: 1.5rem;
+				color: rgb(var(--black));
+				animation: fadeInUp 1s ease-out 0.7s both;
+			}
+
+			.interests-list {
+				list-style: none;
+				padding: 0;
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+				gap: 1rem;
+				margin-bottom: 3rem;
+				text-align: left;
+				animation: fadeInUp 1s ease-out 0.9s both;
+			}
+
+			.interests-list li {
+				padding: 0.75em 1.5em;
+				background: linear-gradient(135deg, rgba(var(--gray-light), 0.5), rgba(var(--gray-light), 0.3));
+				border-left: 3px solid var(--accent);
+				border-radius: 8px;
+				transition: all 0.3s ease;
+				font-size: 0.95rem;
+			}
+
+			.interests-list li:hover {
+				transform: translateX(5px);
+				background: linear-gradient(135deg, rgba(var(--accent), 0.1), rgba(var(--accent), 0.05));
+				box-shadow: 0 4px 12px rgba(var(--gray), 20%);
+			}
+
+			.hero-buttons {
+				display: flex;
+				gap: 1.5rem;
+				justify-content: center;
+				flex-wrap: wrap;
+				animation: fadeInUp 1s ease-out 1.1s both;
+			}
+
+			.btn {
+				padding: 1em 2em;
+				font-size: 1.1rem;
+				font-weight: 600;
+				text-decoration: none;
+				border-radius: 50px;
+				transition: all 0.3s ease;
+				display: inline-block;
+				cursor: pointer;
+			}
+
+			.btn-primary {
+				background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+				color: white;
+				box-shadow: 0 4px 15px rgba(35, 55, 255, 0.3);
+			}
+
+			.btn-primary:hover {
+				transform: translateY(-3px);
+				box-shadow: 0 6px 20px rgba(35, 55, 255, 0.4);
+			}
+
+			.btn-secondary {
+				background: transparent;
+				color: var(--accent);
+				border: 2px solid var(--accent);
+			}
+
+			.btn-secondary:hover {
+				background: rgba(var(--accent), 0.1);
+				transform: translateY(-3px);
+			}
+
+			@keyframes fadeInDown {
+				from {
+					opacity: 0;
+					transform: translateY(-30px);
+				}
+				to {
+					opacity: 1;
+					transform: translateY(0);
+				}
+			}
+
+			@keyframes fadeInUp {
+				from {
+					opacity: 0;
+					transform: translateY(30px);
+				}
+				to {
+					opacity: 1;
+					transform: translateY(0);
+				}
+			}
+
+			@keyframes slideIn {
+				from {
+					width: 0;
+				}
+				to {
+					width: 100%;
+				}
+			}
+
+			@media (max-width: 768px) {
+				.hero-title {
+					font-size: 2.5rem;
+				}
+
+				.hero-name {
+					font-size: 1.5rem;
+				}
+
+				.hero-subtitle {
+					font-size: 1.25rem;
+				}
+
+				.hero-intro {
+					font-size: 1rem;
+				}
+
+				.section-heading {
+					font-size: 1.75rem;
+				}
+
+				.interests-list {
+					grid-template-columns: 1fr;
+				}
+
+				.hero-buttons {
+					flex-direction: column;
+					align-items: center;
+				}
+
+				.btn {
+					width: 100%;
+					max-width: 300px;
+				}
+			}
+
+			@media (max-width: 480px) {
+				.hero-title {
+					font-size: 2rem;
+				}
+
+				.hero-name {
+					font-size: 1.25rem;
+				}
+
+				.hero-subtitle {
+					font-size: 1.1rem;
+				}
+
+				.hero {
+					padding: 2em 0.5em;
+				}
+			}
+		</style>
 		<Footer />
 	</body>
 </html>

@@ -1,85 +1,287 @@
 ---
 import { SITE_TITLE } from '../consts';
-import HeaderLink from './HeaderLink.astro';
 ---
 
-<header>
-	<nav>
-		<h2><a href="/">{SITE_TITLE}</a></h2>
-		<div class="internal-links">
-			<HeaderLink href="/">Home</HeaderLink>
-			<HeaderLink href="/blog">Blog</HeaderLink>
-			<HeaderLink href="/about">About</HeaderLink>
-		</div>
-		<div class="social-links">
-			<a href="https://m.webtoo.ls/@astro" target="_blank">
-				<span class="sr-only">Follow Astro on Mastodon</span>
-				<svg viewBox="0 0 16 16" aria-hidden="true" width="32" height="32"
-					><path
-						fill="currentColor"
-						d="M11.19 12.195c2.016-.24 3.77-1.475 3.99-2.603.348-1.778.32-4.339.32-4.339 0-3.47-2.286-4.488-2.286-4.488C12.062.238 10.083.017 8.027 0h-.05C5.92.017 3.942.238 2.79.765c0 0-2.285 1.017-2.285 4.488l-.002.662c-.004.64-.007 1.35.011 2.091.083 3.394.626 6.74 3.78 7.57 1.454.383 2.703.463 3.709.408 1.823-.1 2.847-.647 2.847-.647l-.06-1.317s-1.303.41-2.767.36c-1.45-.05-2.98-.156-3.215-1.928a3.614 3.614 0 0 1-.033-.496s1.424.346 3.228.428c1.103.05 2.137-.064 3.188-.189zm1.613-2.47H11.13v-4.08c0-.859-.364-1.295-1.091-1.295-.804 0-1.207.517-1.207 1.541v2.233H7.168V5.89c0-1.024-.403-1.541-1.207-1.541-.727 0-1.091.436-1.091 1.296v4.079H3.197V5.522c0-.859.22-1.541.66-2.046.456-.505 1.052-.764 1.793-.764.856 0 1.504.328 1.933.983L8 4.39l.417-.695c.429-.655 1.077-.983 1.934-.983.74 0 1.336.259 1.791.764.442.505.661 1.187.661 2.046v4.203z"
-					></path></svg
-				>
-			</a>
-			<a href="https://twitter.com/astrodotbuild" target="_blank">
-				<span class="sr-only">Follow Astro on Twitter</span>
-				<svg viewBox="0 0 16 16" aria-hidden="true" width="32" height="32"
-					><path
-						fill="currentColor"
-						d="M5.026 15c6.038 0 9.341-5.003 9.341-9.334 0-.14 0-.282-.006-.422A6.685 6.685 0 0 0 16 3.542a6.658 6.658 0 0 1-1.889.518 3.301 3.301 0 0 0 1.447-1.817 6.533 6.533 0 0 1-2.087.793A3.286 3.286 0 0 0 7.875 6.03a9.325 9.325 0 0 1-6.767-3.429 3.289 3.289 0 0 0 1.018 4.382A3.323 3.323 0 0 1 .64 6.575v.045a3.288 3.288 0 0 0 2.632 3.218 3.203 3.203 0 0 1-.865.115 3.23 3.23 0 0 1-.614-.057 3.283 3.283 0 0 0 3.067 2.277A6.588 6.588 0 0 1 .78 13.58a6.32 6.32 0 0 1-.78-.045A9.344 9.344 0 0 0 5.026 15z"
-					></path></svg
-				>
-			</a>
-			<a href="https://github.com/withastro/astro" target="_blank">
-				<span class="sr-only">Go to Astro's GitHub repo</span>
-				<svg viewBox="0 0 16 16" aria-hidden="true" width="32" height="32"
-					><path
-						fill="currentColor"
-						d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"
-					></path></svg
-				>
-			</a>
-		</div>
-	</nav>
-</header>
-<style>
-	header {
-		margin: 0;
-		padding: 0 1em;
-		background: white;
-		box-shadow: 0 2px 8px rgba(var(--black), 5%);
-	}
-	h2 {
-		margin: 0;
-		font-size: 1em;
-	}
+<header id="site-header">
+  <nav class="nav-inner">
+    <!-- Logo / Brand -->
+    <a href="/" class="brand" aria-label="Home">
+      <span class="brand-icon">✦</span>
+      <span class="brand-text">{SITE_TITLE}</span>
+    </a>
 
-	h2 a,
-	h2 a.active {
-		text-decoration: none;
-	}
-	nav {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-	}
-	nav a {
-		padding: 1em 0.5em;
-		color: var(--black);
-		border-bottom: 4px solid transparent;
-		text-decoration: none;
-	}
-	nav a.active {
-		text-decoration: none;
-		border-bottom-color: var(--accent);
-	}
-	.social-links,
-	.social-links a {
-		display: flex;
-	}
-	@media (max-width: 720px) {
-		.social-links {
-			display: none;
-		}
-	}
+    <!-- Desktop Nav Links -->
+    <ul class="nav-links" role="list">
+      <li><a href="/#hero"       class="nav-link">Home</a></li>
+      <li><a href="/#about"      class="nav-link">About</a></li>
+      <li><a href="/#journey"    class="nav-link">Journey</a></li>
+      <li><a href="/#platforms"  class="nav-link">Platforms</a></li>
+      <li><a href="/#skills"     class="nav-link">Skills</a></li>
+      <li><a href="/#contact"    class="nav-link">Contact</a></li>
+      <li><a href="/blog"        class="nav-link nav-blog">Blog</a></li>
+    </ul>
+
+    <!-- Hamburger (mobile) -->
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- Mobile Drawer -->
+  <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
+    <ul role="list">
+      <li><a href="/#hero"       class="mobile-link">Home</a></li>
+      <li><a href="/#about"      class="mobile-link">About</a></li>
+      <li><a href="/#journey"    class="mobile-link">Journey</a></li>
+      <li><a href="/#platforms"  class="mobile-link">Platforms</a></li>
+      <li><a href="/#skills"     class="mobile-link">Skills</a></li>
+      <li><a href="/#contact"    class="mobile-link">Contact</a></li>
+      <li><a href="/blog"        class="mobile-link mobile-blog">Blog</a></li>
+    </ul>
+  </div>
+</header>
+
+<style>
+  /* ── Sticky Header ── */
+  #site-header {
+    position: sticky;
+    top: 0;
+    z-index: 900;
+    background: rgba(253, 250, 244, 0.88);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border-bottom: 1px solid rgba(201, 168, 76, 0.18);
+    transition: box-shadow 0.3s ease, background 0.3s ease;
+  }
+  #site-header.scrolled {
+    box-shadow: 0 2px 24px rgba(0,0,0,0.09);
+    background: rgba(253, 250, 244, 0.97);
+  }
+
+  /* ── Nav Inner ── */
+  .nav-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    height: 68px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+  }
+
+  /* ── Brand ── */
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: none;
+    flex-shrink: 0;
+  }
+  .brand-icon {
+    color: var(--gold);
+    font-size: 1.1rem;
+    line-height: 1;
+    animation: spin-slow 8s linear infinite;
+  }
+  @keyframes spin-slow {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+  }
+  .brand-text {
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--charcoal);
+    letter-spacing: -0.01em;
+    white-space: nowrap;
+  }
+
+  /* ── Desktop Nav Links ── */
+  .nav-links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+  .nav-link {
+    display: block;
+    padding: 0.45em 0.9em;
+    font-family: var(--font-body);
+    font-size: 0.92rem;
+    font-weight: 500;
+    color: var(--ink);
+    text-decoration: none;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    position: relative;
+  }
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 2px; left: 50%; right: 50%;
+    height: 2px;
+    background: var(--gold);
+    border-radius: 2px;
+    transition: left 0.25s ease, right 0.25s ease;
+  }
+  .nav-link:hover {
+    color: var(--gold-dark);
+    background: rgba(201,168,76,0.07);
+  }
+  .nav-link:hover::after,
+  .nav-link.active::after {
+    left: 0.9em;
+    right: 0.9em;
+  }
+  .nav-link.active { color: var(--gold-dark); }
+
+  /* Blog button stands out */
+  .nav-blog {
+    background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+    color: #fff !important;
+    border-radius: 50px;
+    padding: 0.45em 1.3em;
+    box-shadow: 0 3px 12px rgba(160,120,48,0.28);
+    transition: all 0.3s ease;
+  }
+  .nav-blog::after { display: none; }
+  .nav-blog:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(160,120,48,0.38);
+    background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+    color: #fff !important;
+  }
+
+  /* ── Hamburger ── */
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 36px;
+    height: 36px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 6px;
+    transition: background 0.2s;
+  }
+  .hamburger:hover { background: var(--parchment); }
+  .hamburger span {
+    display: block;
+    width: 100%;
+    height: 2px;
+    background: var(--charcoal);
+    border-radius: 2px;
+    transition: all 0.3s ease;
+    transform-origin: center;
+  }
+  .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+  .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  /* ── Mobile Menu ── */
+  .mobile-menu {
+    display: none;
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 0.4s ease;
+    background: var(--warm-white);
+    border-top: 1px solid var(--parchment);
+  }
+  .mobile-menu.open { max-height: 480px; }
+  .mobile-menu ul {
+    list-style: none;
+    margin: 0;
+    padding: 1rem 2rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+  .mobile-link {
+    display: block;
+    padding: 0.7em 1em;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--ink);
+    text-decoration: none;
+    border-radius: 10px;
+    transition: all 0.2s ease;
+  }
+  .mobile-link:hover {
+    color: var(--gold-dark);
+    background: rgba(201,168,76,0.09);
+  }
+  .mobile-blog {
+    margin-top: 0.5rem;
+    background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+    color: #fff !important;
+    text-align: center;
+    border-radius: 50px;
+    padding: 0.7em 1em;
+  }
+  .mobile-blog:hover {
+    color: #fff !important;
+    opacity: 0.9;
+    background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 860px) {
+    .nav-links   { display: none; }
+    .hamburger   { display: flex; }
+    .mobile-menu { display: block; }
+  }
+  @media (max-width: 480px) {
+    .nav-inner   { padding: 0 1.2rem; }
+    .brand-text  { font-size: 1rem; }
+  }
 </style>
+
+<script>
+  // ── Scroll shadow ──
+  const header = document.getElementById('site-header');
+  const onScroll = () => {
+    header?.classList.toggle('scrolled', window.scrollY > 20);
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  // ── Hamburger toggle ──
+  const burger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobile-menu');
+  burger?.addEventListener('click', () => {
+    const open = burger.classList.toggle('open');
+    burger.setAttribute('aria-expanded', String(open));
+    mobileMenu?.classList.toggle('open', open);
+    mobileMenu?.setAttribute('aria-hidden', String(!open));
+  });
+
+  // Close mobile menu on link click
+  mobileMenu?.querySelectorAll('.mobile-link').forEach(link => {
+    link.addEventListener('click', () => {
+      burger?.classList.remove('open');
+      burger?.setAttribute('aria-expanded', 'false');
+      mobileMenu.classList.remove('open');
+      mobileMenu.setAttribute('aria-hidden', 'true');
+    });
+  });
+
+  // ── Active nav highlight on scroll ──
+  const navLinks = document.querySelectorAll('.nav-link');
+  const sections = document.querySelectorAll('section[id]');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navLinks.forEach(l => l.classList.remove('active'));
+        const active = document.querySelector(`.nav-link[href*="#${entry.target.id}"]`);
+        active?.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-40% 0px -55% 0px' });
+  sections.forEach(s => observer.observe(s));
+</script>

@@ -1,5 +1,4 @@
-// Place any global data in this file.
-// You can import this data from anywhere in your site by using the `import` keyword.
-
-export const SITE_TITLE = 'Astro Blog';
-export const SITE_DESCRIPTION = 'Welcome to my website!';
+// Global site data for The Polymath Journey
+export const SITE_TITLE = 'The Polymath Journey';
+export const SITE_DESCRIPTION = 'Where Ancient Wisdom Meets Future Intelligence — The personal brand and storytelling portfolio of Ch. Rupika.';
+export const SITE_AUTHOR = 'Ch. Rupika';

@@ -1,141 +1,368 @@
-/*
-  The CSS in this style tag is based off of Bear Blog's default CSS.
-  https://github.com/HermanMartinus/bearblog/blob/297026a877bc2ab2b3bdfbd6b9f7961c350917dd/templates/styles/blog/default.css
-  License MIT: https://github.com/HermanMartinus/bearblog/blob/master/LICENSE.md
- */
+/* ============================================================
+   THE POLYMATH JOURNEY — Global Design System
+   Where Ancient Wisdom Meets Future Intelligence
+   ============================================================ */
 
+/* Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,600&family=Inter:wght@300;400;500;600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap');
+
+/* ── Design Tokens ── */
 :root {
-	--accent: #2337ff;
-	--accent-dark: #000d8a;
-	--black: 15, 18, 25;
-	--gray: 96, 115, 159;
-	--gray-light: 229, 233, 240;
-	--gray-dark: 34, 41, 57;
-	--gray-gradient: rgba(var(--gray-light), 50%), #fff;
-	--box-shadow:
-		0 2px 6px rgba(var(--gray), 25%), 0 8px 24px rgba(var(--gray), 33%),
-		0 16px 32px rgba(var(--gray), 33%);
-}
-body {
-	font-family: var(--font-atkinson);
-	margin: 0;
-	padding: 0;
-	text-align: left;
-	background: linear-gradient(var(--gray-gradient)) no-repeat;
-	background-size: 100% 600px;
-	word-wrap: break-word;
-	overflow-wrap: break-word;
-	color: rgb(var(--gray-dark));
-	font-size: 20px;
-	line-height: 1.7;
-}
-main {
-	width: 720px;
-	max-width: calc(100% - 2em);
-	margin: auto;
-	padding: 3em 1em;
-}
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-	margin: 0 0 0.5rem 0;
-	color: rgb(var(--black));
-	line-height: 1.2;
-}
-h1 {
-	font-size: 3.052em;
-}
-h2 {
-	font-size: 2.441em;
-}
-h3 {
-	font-size: 1.953em;
-}
-h4 {
-	font-size: 1.563em;
-}
-h5 {
-	font-size: 1.25em;
-}
-strong,
-b {
-	font-weight: 700;
-}
-a {
-	color: var(--accent);
-}
-a:hover {
-	color: var(--accent);
-}
-p {
-	margin-bottom: 1em;
-}
-.prose p {
-	margin-bottom: 2em;
-}
-textarea {
-	width: 100%;
-	font-size: 16px;
-}
-input {
-	font-size: 16px;
-}
-table {
-	width: 100%;
-}
-img {
-	max-width: 100%;
-	height: auto;
-	border-radius: 8px;
-}
-code {
-	padding: 2px 5px;
-	background-color: rgb(var(--gray-light));
-	border-radius: 2px;
-}
-pre {
-	padding: 1.5em;
-	border-radius: 8px;
-}
-pre > code {
-	all: unset;
-}
-blockquote {
-	border-left: 4px solid var(--accent);
-	padding: 0 0 0 20px;
-	margin: 0;
-	font-size: 1.333em;
-}
-hr {
-	border: none;
-	border-top: 1px solid rgb(var(--gray-light));
-}
-@media (max-width: 720px) {
-	body {
-		font-size: 18px;
-	}
-	main {
-		padding: 1em;
-	}
+  /* Palette */
+  --ivory:        #FDFAF4;
+  --cream:        #F5F0E8;
+  --warm-white:   #FFFEF9;
+  --parchment:    #EDE8DF;
+  --gold:         #C9A84C;
+  --gold-light:   #E8C97A;
+  --gold-dark:    #A07830;
+  --charcoal:     #1C1C1E;
+  --charcoal-mid: #2D2D30;
+  --ink:          #3A3A3C;
+  --slate:        #6B7280;
+  --slate-light:  #9CA3AF;
+  --mist:         #E5E7EB;
+
+  /* Accent */
+  --accent:       #C9A84C;
+  --accent-dark:  #A07830;
+  --accent-glow:  rgba(201, 168, 76, 0.25);
+
+  /* Legacy support (used by BlogPost.astro) */
+  --primary-blue: #2563EB;
+  --deep-navy:    #0F172A;
+  --accent-cyan:  #06B6D4;
+  --black:        28, 28, 30;
+  --gray:         107, 114, 128;
+  --gray-light:   229, 231, 235;
+  --gray-dark:    58, 58, 60;
+  --gray-gradient: rgba(245, 240, 232, 60%), #FDFAF4;
+  --box-shadow:
+    0 2px 6px rgba(0,0,0,0.06),
+    0 8px 24px rgba(0,0,0,0.08),
+    0 16px 32px rgba(0,0,0,0.06);
+
+  /* Typography */
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body:    'Inter', system-ui, sans-serif;
+  --font-prose:   'Crimson Text', Georgia, serif;
+  --font-atkinson: 'Inter', system-ui, sans-serif;
+
+  /* Spacing */
+  --section-pad:  7rem 2rem;
+  --card-radius:  16px;
+  --btn-radius:   50px;
+
+  /* Transitions */
+  --ease-out:     cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-spring:  cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
+/* ── Reset ── */
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-body);
+  margin: 0;
+  padding: 0;
+  text-align: left;
+  background-color: var(--ivory);
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  color: var(--ink);
+  font-size: 18px;
+  line-height: 1.75;
+}
+
+/* ── Layout ── */
+main {
+  width: 720px;
+  max-width: calc(100% - 2em);
+  margin: auto;
+  padding: 3em 1em;
+}
+
+/* ── Typography ── */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  margin: 0 0 0.6rem 0;
+  color: var(--charcoal);
+  line-height: 1.2;
+  font-weight: 700;
+}
+h1 { font-size: 3.052em; }
+h2 { font-size: 2.441em; }
+h3 { font-size: 1.953em; }
+h4 { font-size: 1.563em; }
+h5 { font-size: 1.25em; }
+
+strong, b { font-weight: 700; }
+
+a {
+  color: var(--gold-dark);
+  text-decoration: none;
+  transition: color 0.2s var(--ease-out);
+}
+a:hover { color: var(--gold); }
+
+p { margin-bottom: 1em; }
+.prose p { margin-bottom: 1.8em; font-family: var(--font-prose); font-size: 1.1rem; }
+
+/* ── Prose Article Content ── */
+.prose h2 {
+  font-family: var(--font-display);
+  color: var(--charcoal);
+  border-bottom: 2px solid var(--gold);
+  padding-bottom: 0.4rem;
+  margin-top: 2.5rem;
+}
+.prose h3 { color: var(--gold-dark); margin-top: 2rem; }
+.prose ul  { padding-left: 1.5em; }
+.prose li  { margin-bottom: 0.4em; }
+.prose strong { color: var(--charcoal); }
+.prose blockquote {
+  border-left: 4px solid var(--gold);
+  padding: 0.5em 0 0.5em 1.5em;
+  margin: 2em 0;
+  font-family: var(--font-display);
+  font-style: italic;
+  color: var(--slate);
+  font-size: 1.1em;
+}
+
+/* ── Utilities ── */
+textarea  { width: 100%; font-size: 16px; }
+input     { font-size: 16px; }
+table     { width: 100%; }
+
+img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+code {
+  padding: 2px 6px;
+  background-color: var(--parchment);
+  border-radius: 4px;
+  font-size: 0.9em;
+}
+pre { padding: 1.5em; border-radius: 12px; }
+pre > code { all: unset; }
+
+blockquote {
+  border-left: 4px solid var(--gold);
+  padding: 0 0 0 1.5em;
+  margin: 0;
+  font-size: 1.2em;
+  font-style: italic;
+  color: var(--slate);
+}
+
+hr {
+  border: none;
+  border-top: 1px solid var(--parchment);
+  margin: 2.5rem 0;
+}
+
+/* ── Gold Divider ── */
+.divider-gold {
+  width: 80px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--gold-dark), var(--gold-light), var(--gold-dark));
+  border-radius: 2px;
+  margin: 0 auto 2rem;
+}
+
+/* ── Section Label ── */
+.section-label {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold-dark);
+  background: rgba(201,168,76,0.12);
+  border: 1px solid rgba(201,168,76,0.3);
+  padding: 0.35em 1.1em;
+  border-radius: 50px;
+  margin-bottom: 1.2rem;
+}
+
+/* ── Gold Button ── */
+.btn-gold {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.85em 2em;
+  background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+  color: var(--warm-white);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.95rem;
+  border-radius: var(--btn-radius);
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.3s var(--ease-out);
+  box-shadow: 0 4px 16px rgba(160,120,48,0.28);
+  position: relative;
+  overflow: hidden;
+}
+.btn-gold::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+  transition: left 0.5s ease;
+}
+.btn-gold:hover::before { left: 100%; }
+.btn-gold:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 28px rgba(160,120,48,0.38);
+  color: var(--warm-white);
+}
+
+/* ── Ghost Button ── */
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.85em 2em;
+  background: transparent;
+  color: var(--gold-dark);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.95rem;
+  border-radius: var(--btn-radius);
+  border: 2px solid var(--gold);
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.3s var(--ease-out);
+}
+.btn-ghost:hover {
+  background: var(--gold);
+  color: var(--warm-white);
+  transform: translateY(-3px);
+}
+
+/* ── Scroll Reveal ── */
+.reveal {
+  opacity: 0;
+  transform: translateY(36px);
+  transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-36px);
+  transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out);
+}
+.reveal-left.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+.reveal-right {
+  opacity: 0;
+  transform: translateX(36px);
+  transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out);
+}
+.reveal-right.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* ── Glassmorphism card ── */
+.glass-card {
+  background: rgba(255, 254, 249, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(201, 168, 76, 0.18);
+  border-radius: var(--card-radius);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+  transition: transform 0.3s var(--ease-out), box-shadow 0.3s var(--ease-out);
+}
+.glass-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.12), 0 0 0 1px rgba(201,168,76,0.25);
+}
+
+/* ── Modal Overlay ── */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(28,28,30,0.7);
+  backdrop-filter: blur(6px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+.modal-overlay.open {
+  opacity: 1;
+  pointer-events: all;
+}
+.modal-box {
+  background: var(--warm-white);
+  border-radius: 20px;
+  max-width: 580px;
+  width: 100%;
+  max-height: 88vh;
+  overflow-y: auto;
+  padding: 2.5rem;
+  box-shadow: 0 24px 80px rgba(0,0,0,0.25);
+  position: relative;
+  transform: translateY(20px);
+  transition: transform 0.3s var(--ease-spring);
+}
+.modal-overlay.open .modal-box { transform: translateY(0); }
+.modal-close {
+  position: absolute;
+  top: 1.2rem; right: 1.4rem;
+  background: none;
+  border: none;
+  font-size: 1.6rem;
+  color: var(--slate);
+  cursor: pointer;
+  line-height: 1;
+  transition: color 0.2s;
+}
+.modal-close:hover { color: var(--charcoal); }
+
+/* ── Screen reader only ── */
 .sr-only {
-	border: 0;
-	padding: 0;
-	margin: 0;
-	position: absolute !important;
-	height: 1px;
-	width: 1px;
-	overflow: hidden;
-	/* IE6, IE7 - a 0 height clip, off to the bottom right of the visible 1px box */
-	clip: rect(1px 1px 1px 1px);
-	/* maybe deprecated but we need to support legacy browsers */
-	clip: rect(1px, 1px, 1px, 1px);
-	/* modern browsers, clip-path works inwards from each corner */
-	clip-path: inset(50%);
-	/* added line to stop words getting smushed together (as they go onto separate lines and some screen readers do not understand line feeds as a space */
-	white-space: nowrap;
+  border: 0; padding: 0; margin: 0;
+  position: absolute !important;
+  height: 1px; width: 1px;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  body  { font-size: 16px; }
+  main  { padding: 1.5em 1em; }
+  h1    { font-size: 2.2em; }
+  h2    { font-size: 1.8em; }
+}
+@media (max-width: 480px) {
+  body  { font-size: 15px; }
+  main  { padding: 1em; }
 }

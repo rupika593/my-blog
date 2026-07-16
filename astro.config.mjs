@@ -2,13 +2,15 @@
 
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
+import vercel from '@astrojs/vercel';
 import { defineConfig, fontProviders } from 'astro/config';
 
 // https://astro.build/config
 export default defineConfig({
-	// GitHub Pages configuration
-	site: 'https://rupika593.github.io',
-	base: '/my-blog',
+	// Vercel adapter for server-side rendering
+	adapter: vercel(),
+	// Your Vercel deployment URL - update this after deployment
+	site: 'https://your-project.vercel.app',
 	integrations: [mdx(), sitemap()],
 	fonts: [
 		{
